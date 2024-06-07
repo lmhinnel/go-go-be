@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  postgres-go:
+    container_name: postgres-go
+    restart: always
+    build:
+      context: .
+      dockerfile: dockerfile.postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - SEED=${SEED}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server-go:
+    container_name: server-go
+    restart: always
+    build:
+      context: .
+      dockerfile: dockerfile.server
+    ports:
+      - 3000:3000
+    depends_on:
+      postgres-go:
+        condition: service_healthy
+volumes:
+  pgdata:
