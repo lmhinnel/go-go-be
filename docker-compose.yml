@@ -30,8 +30,8 @@ services:
       - 0.0.0.0:3000:3000
     labels:
       kompose.service.type: nodeport
-    depends_on:
-      - postgres-go
+    # depends_on:
+    #   - postgres-go
         # condition: service_healthy
 volumes:
   pgdata:
