@@ -9,6 +9,7 @@ metadata:
   labels:
     io.kompose.service: postgres-go
   name: postgres-go
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -26,15 +27,16 @@ spec:
       labels:
         io.kompose.service: postgres-go
     spec:
+      hostname: postgres-go
       containers:
-        - image: postgres-go
-          livenessProbe:
-            exec:
-              command:
-                - pg_isready -U postgres
-            failureThreshold: 5
-            periodSeconds: 1
-            timeoutSeconds: 5
+        - image: "{{ .Values.imageDb.name }}:{{ .Values.imageDb.tag }}"
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #       - pg_isready -U postgres
+          #   failureThreshold: 5
+          #   periodSeconds: 1
+          #   timeoutSeconds: 5
           name: postgres-go
           ports:
             - containerPort: 5432

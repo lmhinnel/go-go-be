@@ -9,6 +9,7 @@ metadata:
   labels:
     io.kompose.service: server-go
   name: server-go
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
@@ -26,7 +27,7 @@ spec:
         io.kompose.service: server-go
     spec:
       containers:
-        - image: server-go
+        - image: "{{ .Values.imageApi.name }}:{{ .Values.imageApi.tag }}"
           name: server-go
           ports:
             - containerPort: 3000
