@@ -3,4 +3,4 @@ FROM postgres:12 as base
 ENV POSTGRES_PASSWORD postgres
 ENV POSTGRES_DB postgres
 
-COPY resources/ddl-database${SEED}.sql /docker-entrypoint-initdb.d/
+COPY resources/ddl-database-seed.sql /docker-entrypoint-initdb.d/
