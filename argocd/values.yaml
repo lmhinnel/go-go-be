@@ -1,0 +1,14 @@
+appName: api
+
+port: 3000
+
+namespace: api
+
+configmap:
+  name: api
+  data:
+    CUSTOM_HEADER: "This app was deployed with helm!"
+
+image:
+  name: lmhinnoc/vdt-api
+  tag: latest

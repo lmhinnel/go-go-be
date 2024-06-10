@@ -8,6 +8,8 @@ services:
       dockerfile: dockerfile.postgres
     ports:
       - 5433:5432
+    labels:
+      kompose.service.type: nodeport
     volumes:
       - pgdata:/var/lib/postgresql/data
     # environment:
@@ -26,8 +28,10 @@ services:
       dockerfile: dockerfile.server
     ports:
       - 0.0.0.0:3000:3000
+    labels:
+      kompose.service.type: nodeport
     depends_on:
-      postgres-go:
-        condition: service_healthy
+      - postgres-go
+        # condition: service_healthy
 volumes:
   pgdata:
