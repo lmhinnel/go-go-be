@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	utils.RecordMetrics()
-	
 	app := server.New()
 	utils.InfoLog.Println("starting the server on port", os.Getenv("API_PORT"))
 	if err := app.Listen(os.Getenv("API_PORT")); err != nil {

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: be
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/lmhuong711/go-go-be.git'
+    path: argocd
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - >-
+          https://raw.githubusercontent.com/lmhuong711/go-go-be-config/main/dev-values.yaml
+      parameters:
+        - name: namespace
+          value: go-go
+  destination:
+    server: 'https://192.168.11.101:6443'
+    namespace: go-go
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

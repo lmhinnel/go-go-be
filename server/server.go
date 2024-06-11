@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/ansrivas/fiberprometheus/v2"
 	"github.com/lmhuong711/go-go-be/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,8 +11,13 @@ import (
 
 func New() *fiber.App {
 	app := fiber.New()
+
+	prometheus := fiberprometheus.New("go-go-be")
+	prometheus.RegisterAt(app, "/metrics")
+
 	app.Use(cors.New())
 	app.Use(logger.New())
+	app.Use(prometheus.Middleware)
 
 	app.Use(func(ctx *fiber.Ctx) error {
 		if err := ctx.Next(); err != nil {
