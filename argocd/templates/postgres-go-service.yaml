@@ -15,7 +15,7 @@ spec:
     - name: "5433"
       port: 5433
       targetPort: 5432
-      nodePort: 99170
+      nodePort: 31170
   selector:
     io.kompose.service: postgres-go
   type: NodePort
