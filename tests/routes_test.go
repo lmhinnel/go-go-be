@@ -95,6 +95,7 @@ func TestRoutes(t *testing.T) {
 		)
 		req.Close = true
 		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJyb2xlIjoiYWRtaW4ifQ.o3KnG1U87E9R0EZeX5VlAb-qr4M8soN8jxJzxrUw0LA")
 
 		res, err := app.Test(req, -1)
 		assert.Nilf(t, err, test.testName)
